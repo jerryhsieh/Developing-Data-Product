@@ -21,10 +21,11 @@ For each date, I calculate the daily average, this is what I should put in the f
 ### Shinyapps
 
 Files in the project
-ui.R
-server.R
-Readme.MD
-DESCRIPTION
+* ui.R
+* server.R
+* Readme.MD
+* DESCRIPTION
 
 which also deploy to shinyapps.  you can find result here:  http://jerryhsieh.shinyapps.io/Project
+
 
