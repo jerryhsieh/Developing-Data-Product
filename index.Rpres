@@ -1,0 +1,60 @@
+2014 PM2.5 Status in One of Taiwan City
+========================================================
+author: Jerry Hsieh
+date: `r date()`
+
+
+Introduction
+========================================================
+
+Atmospheric particulate matter – also known as particulate matter (PM) or particulates – is microscopic solid or liquid matter suspended in the Earth's atmosphere. 
+
+The smaller PM2.5 were particularly deadly, with a 36% increase in lung cancer per 10 μg/m3 as it can penetrate deeper into the lungs
+
+Following are some Daily average limit for PM 2.5 set by each country
+
+- Australia - 25 $\mu$ g/$m^3$
+- China - 75 $\mu$ g/$m^3$
+- U.S.A. -35 $\mu$ g/$m^3$
+
+Data Exploring
+========================================================
+transition: rotate
+```{r echo=FALSE}
+air <- read.csv("103YH20150324.csv", stringsAsFactor=FALSE)
+airPM <- subset(air, Test.Item == "PM2.5")
+airPM$Date <- as.Date(airPM$Date)
+airPM[4:27] <- lapply(airPM[4:27], as.numeric)
+library(ggplot2)
+```
+Data could be download from http://taqm.epa.gov.tw/taqm/tw/YearlyDataDownload.aspx
+Following are first two rows of data after clean up, they show hourly PM 2.5 status at that Date and Station
+
+```{r, echo=FALSE}
+head(airPM, n=2L)
+```
+
+Shiny App
+========================================================
+transition: linear
+
+Following graph are showing daily average of PM2.5 in year 2014, default setting for Standard are 15 $\mu$ g / $m^3$, 
+
+in https://jerryhsieh.shinyapps.io/Project Visitors can use slidebar to check if change standard, how many days in year can meet the standard.
+
+```{r, echo=FALSE}
+library(ggplot2)
+airPM$avg <- rowMeans(airPM[4:27], na.rm=TRUE)
+plot(airPM$Date, airPM$avg, type="l")
+abline(h=15)
+```
+
+
+Further Study
+========================================================
+
+The PM 2.5 status was ignore in the past in Taiwan, with some visual help, people could start to realize the importance of the issue and trying to improve the air quality by monitoring the status closely.
+
+- Easier to view the data, right now raw data is very difficult for human analyze.
+- Timely update (daily basis?) to see if there are serious air pollution.
+
